@@ -4,10 +4,10 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="robots" content="noindex, nofollow">
-<title>Stack Operativo · CONFORTZONE</title>
+<title>Operational Hub · CONFORTZONE</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
   html, body {
@@ -44,10 +44,10 @@
   }
 
   h1 {
-    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-size: clamp(2.5rem, 5vw, 4.25rem);
     font-weight: 800;
-    letter-spacing: -0.03em;
-    line-height: 1.05;
+    letter-spacing: -0.035em;
+    line-height: 1.02;
     margin-bottom: 16px;
     background: linear-gradient(135deg, #ffffff 0%, #a8b2d1 100%);
     -webkit-background-clip: text;
@@ -121,18 +121,36 @@
   .card:hover::after { opacity: 0.15; }
 
   .card-icon {
-    width: 52px;
-    height: 52px;
-    border-radius: 14px;
+    width: 60px;
+    height: 60px;
+    border-radius: 16px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 28px;
     margin-bottom: 20px;
     background: var(--icon-bg);
     border: 1px solid var(--accent-border);
     position: relative;
     z-index: 1;
+    overflow: hidden;
+  }
+
+  .logo-mono {
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.04em;
+    color: var(--accent);
+    font-family: 'Inter', sans-serif;
+    line-height: 1;
+  }
+
+  .logo-img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 4px;
+    background: #ffffff;
+    border-radius: 15px;
   }
 
   .card-category {
@@ -185,7 +203,6 @@
     transform: translateX(4px);
   }
 
-  /* Palette per card */
   .card.kolumbus {
     --accent: #a78bfa;
     --accent-glow: rgba(167, 139, 250, 0.4);
@@ -253,26 +270,26 @@
 <body>
   <div class="container">
     <header>
-      <span class="brand-tag">CONFORTZONE · Mission Control</span>
-      <h1>Lo stack che fa girare tutto.</h1>
-      <p class="subtitle">Dalla programmazione del codice al CRM AI-powered, dall'ad tracking alla logistica. Un click, apri il tool.</p>
+      <span class="brand-tag">CONFORTZONE</span>
+      <h1>Operational Hub.</h1>
+      <p class="subtitle">Lo stack che muove tutto, in un posto solo. Un click, dentro.</p>
     </header>
 
     <div class="grid">
 
-      <a href="https://claude.ai/" target="_blank" class="card kolumbus">
-        <div class="card-icon">🧭</div>
-        <div class="card-category">Dev · Build</div>
-        <div class="card-title">Kolumbus</div>
-        <div class="card-subtitle">Tool interno di programmazione. Esploratore di territori digitali.</div>
+      <a href="https://kolomb.confortzone.app" target="_blank" class="card kolumbus">
+        <div class="card-icon"><img class="logo-img" src="logos/kolomb.webp" alt="Kolomb"></div>
+        <div class="card-category">Cockpit · Strategia</div>
+        <div class="card-title">Kolomb</div>
+        <div class="card-subtitle">Cockpit strategico CONFORTZONE. Cosa gira ora, cosa arriva nei prossimi mesi — in un posto solo.</div>
         <div class="card-cta">
-          Apri Kolumbus
+          Apri Kolomb
           <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
         </div>
       </a>
 
-      <a href="#TODO-sapiens-url" target="_blank" class="card sapiens">
-        <div class="card-icon">🧠</div>
+      <a href="https://bussola.confortzone.app" target="_blank" class="card sapiens">
+        <div class="card-icon"><img class="logo-img" src="logos/sapiens.webp" alt="Sapiens"></div>
         <div class="card-category">CRM · AI</div>
         <div class="card-title">Sapiens</div>
         <div class="card-subtitle">CRM custom AI-powered (ex Bussola). Orchestratore clienti CONFORTZONE con segmentazione iper-granulare.</div>
@@ -282,8 +299,8 @@
         </div>
       </a>
 
-      <a href="#TODO-metamind-url" target="_blank" class="card metamind">
-        <div class="card-icon">📊</div>
+      <a href="https://metamind.sottozerocrema.com" target="_blank" class="card metamind">
+        <div class="card-icon"><img class="logo-img" src="logos/metamind.webp" alt="MetaMind"></div>
         <div class="card-category">Ads · Tracking</div>
         <div class="card-title">MetaMind</div>
         <div class="card-subtitle">Tracking Meta Ads + attribution reale. POAS, CAC, P&amp;L per ad — fonte di verità media buying.</div>
@@ -293,8 +310,8 @@
         </div>
       </a>
 
-      <a href="#TODO-logisky-url" target="_blank" class="card logisky">
-        <div class="card-icon">📦</div>
+      <a href="https://logisky.confortzone.app" target="_blank" class="card logisky">
+        <div class="card-icon"><img class="logo-img" src="logos/logisky.webp" alt="LogiSky"></div>
         <div class="card-category">Logistica</div>
         <div class="card-title">LogiSky</div>
         <div class="card-subtitle">Gestionale ordini e spedizioni. Il motore che muove la roba dal magazzino al cliente.</div>
@@ -305,7 +322,7 @@
       </a>
 
       <a href="https://app.gohighlevel.com/" target="_blank" class="card ghl">
-        <div class="card-icon">⚡</div>
+        <div class="card-icon"><img class="logo-img" src="logos/ghl.webp" alt="GoHighLevel"></div>
         <div class="card-category">Operativo · Marketing</div>
         <div class="card-title">GoHighLevel</div>
         <div class="card-subtitle">Workflow, email, SMS, broadcast, pipeline. Il cuore operativo marketing automation.</div>
@@ -316,7 +333,7 @@
       </a>
 
       <a href="https://app.metorik.com/" target="_blank" class="card metorik">
-        <div class="card-icon">📈</div>
+        <div class="card-icon"><img class="logo-img" src="logos/metorik.webp" alt="Metorik"></div>
         <div class="card-category">Analytics · WooCommerce</div>
         <div class="card-title">Metorik</div>
         <div class="card-subtitle">Analytics avanzata multi-store Woo. Report vendite, cohort, RFM, segmenti clienti.</div>
@@ -329,7 +346,7 @@
     </div>
 
     <footer>
-      <strong>CONFORTZONE SRL</strong> · Stack operativo 2026 · Un posto per tutto, tutto al suo posto.
+      <strong>CONFORTZONE SRL</strong> · Operational Hub 2026 · Un posto per tutto, tutto al suo posto.
     </footer>
   </div>
 </body>
