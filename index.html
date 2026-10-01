@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="robots" content="noindex, nofollow">
+<title>Stack Operativo · CONFORTZONE</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  html, body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0a0e27 100%);
+    min-height: 100vh;
+    color: #e8ecf4;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 60px 32px 80px;
+  }
+
+  header {
+    text-align: center;
+    margin-bottom: 64px;
+  }
+
+  .brand-tag {
+    display: inline-block;
+    padding: 6px 16px;
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.3);
+    border-radius: 100px;
+    color: #4ade80;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 5vw, 4rem);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.05;
+    margin-bottom: 16px;
+    background: linear-gradient(135deg, #ffffff 0%, #a8b2d1 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .subtitle {
+    font-size: 1.125rem;
+    color: #8892b0;
+    max-width: 580px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+  }
+
+  .card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 20px;
+    padding: 32px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    min-height: 220px;
+  }
+
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--accent);
+    opacity: 0;
+    transition: opacity 0.3s;
+  }
+
+  .card::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    right: -50%;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, var(--accent-glow) 0%, transparent 60%);
+    opacity: 0;
+    transition: opacity 0.4s;
+    pointer-events: none;
+  }
+
+  .card:hover {
+    transform: translateY(-4px);
+    background: rgba(255, 255, 255, 0.05);
+    border-color: var(--accent-border);
+    box-shadow: 0 20px 60px -20px var(--accent-shadow);
+  }
+
+  .card:hover::before { opacity: 1; }
+  .card:hover::after { opacity: 0.15; }
+
+  .card-icon {
+    width: 52px;
+    height: 52px;
+    border-radius: 14px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 28px;
+    margin-bottom: 20px;
+    background: var(--icon-bg);
+    border: 1px solid var(--accent-border);
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-category {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    margin-bottom: 8px;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin-bottom: 6px;
+    color: #ffffff;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-subtitle {
+    font-size: 0.875rem;
+    color: #8892b0;
+    margin-bottom: 20px;
+    line-height: 1.5;
+    flex: 1;
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-cta {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    color: var(--accent);
+    position: relative;
+    z-index: 1;
+  }
+
+  .card-cta svg {
+    transition: transform 0.3s;
+  }
+
+  .card:hover .card-cta svg {
+    transform: translateX(4px);
+  }
+
+  /* Palette per card */
+  .card.kolumbus {
+    --accent: #a78bfa;
+    --accent-glow: rgba(167, 139, 250, 0.4);
+    --accent-border: rgba(167, 139, 250, 0.3);
+    --accent-shadow: rgba(167, 139, 250, 0.3);
+    --icon-bg: rgba(167, 139, 250, 0.12);
+  }
+  .card.sapiens {
+    --accent: #4ade80;
+    --accent-glow: rgba(74, 222, 128, 0.4);
+    --accent-border: rgba(74, 222, 128, 0.3);
+    --accent-shadow: rgba(74, 222, 128, 0.3);
+    --icon-bg: rgba(74, 222, 128, 0.12);
+  }
+  .card.metamind {
+    --accent: #60a5fa;
+    --accent-glow: rgba(96, 165, 250, 0.4);
+    --accent-border: rgba(96, 165, 250, 0.3);
+    --accent-shadow: rgba(96, 165, 250, 0.3);
+    --icon-bg: rgba(96, 165, 250, 0.12);
+  }
+  .card.logisky {
+    --accent: #fb923c;
+    --accent-glow: rgba(251, 146, 60, 0.4);
+    --accent-border: rgba(251, 146, 60, 0.3);
+    --accent-shadow: rgba(251, 146, 60, 0.3);
+    --icon-bg: rgba(251, 146, 60, 0.12);
+  }
+  .card.ghl {
+    --accent: #facc15;
+    --accent-glow: rgba(250, 204, 21, 0.4);
+    --accent-border: rgba(250, 204, 21, 0.3);
+    --accent-shadow: rgba(250, 204, 21, 0.3);
+    --icon-bg: rgba(250, 204, 21, 0.12);
+  }
+  .card.metorik {
+    --accent: #f472b6;
+    --accent-glow: rgba(244, 114, 182, 0.4);
+    --accent-border: rgba(244, 114, 182, 0.3);
+    --accent-shadow: rgba(244, 114, 182, 0.3);
+    --icon-bg: rgba(244, 114, 182, 0.12);
+  }
+
+  footer {
+    text-align: center;
+    margin-top: 64px;
+    padding-top: 32px;
+    border-top: 1px solid rgba(255, 255, 255, 0.06);
+    color: #64748b;
+    font-size: 0.875rem;
+  }
+
+  footer strong {
+    color: #a8b2d1;
+    font-weight: 600;
+  }
+
+  @media (max-width: 640px) {
+    .container { padding: 40px 20px 60px; }
+    .card { padding: 24px; min-height: auto; }
+    h1 { font-size: 2.25rem; }
+  }
+</style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <span class="brand-tag">CONFORTZONE · Mission Control</span>
+      <h1>Lo stack che fa girare tutto.</h1>
+      <p class="subtitle">Dalla programmazione del codice al CRM AI-powered, dall'ad tracking alla logistica. Un click, apri il tool.</p>
+    </header>
+
+    <div class="grid">
+
+      <a href="https://claude.ai/" target="_blank" class="card kolumbus">
+        <div class="card-icon">🧭</div>
+        <div class="card-category">Dev · Build</div>
+        <div class="card-title">Kolumbus</div>
+        <div class="card-subtitle">Tool interno di programmazione. Esploratore di territori digitali.</div>
+        <div class="card-cta">
+          Apri Kolumbus
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a href="#TODO-sapiens-url" target="_blank" class="card sapiens">
+        <div class="card-icon">🧠</div>
+        <div class="card-category">CRM · AI</div>
+        <div class="card-title">Sapiens</div>
+        <div class="card-subtitle">CRM custom AI-powered (ex Bussola). Orchestratore clienti CONFORTZONE con segmentazione iper-granulare.</div>
+        <div class="card-cta">
+          Apri Sapiens
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a href="#TODO-metamind-url" target="_blank" class="card metamind">
+        <div class="card-icon">📊</div>
+        <div class="card-category">Ads · Tracking</div>
+        <div class="card-title">MetaMind</div>
+        <div class="card-subtitle">Tracking Meta Ads + attribution reale. POAS, CAC, P&amp;L per ad — fonte di verità media buying.</div>
+        <div class="card-cta">
+          Apri MetaMind
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a href="#TODO-logisky-url" target="_blank" class="card logisky">
+        <div class="card-icon">📦</div>
+        <div class="card-category">Logistica</div>
+        <div class="card-title">LogiSky</div>
+        <div class="card-subtitle">Gestionale ordini e spedizioni. Il motore che muove la roba dal magazzino al cliente.</div>
+        <div class="card-cta">
+          Apri LogiSky
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a href="https://app.gohighlevel.com/" target="_blank" class="card ghl">
+        <div class="card-icon">⚡</div>
+        <div class="card-category">Operativo · Marketing</div>
+        <div class="card-title">GoHighLevel</div>
+        <div class="card-subtitle">Workflow, email, SMS, broadcast, pipeline. Il cuore operativo marketing automation.</div>
+        <div class="card-cta">
+          Apri GHL
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+      <a href="https://app.metorik.com/" target="_blank" class="card metorik">
+        <div class="card-icon">📈</div>
+        <div class="card-category">Analytics · WooCommerce</div>
+        <div class="card-title">Metorik</div>
+        <div class="card-subtitle">Analytics avanzata multi-store Woo. Report vendite, cohort, RFM, segmenti clienti.</div>
+        <div class="card-cta">
+          Apri Metorik
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </div>
+      </a>
+
+    </div>
+
+    <footer>
+      <strong>CONFORTZONE SRL</strong> · Stack operativo 2026 · Un posto per tutto, tutto al suo posto.
+    </footer>
+  </div>
+</body>
+</html>
